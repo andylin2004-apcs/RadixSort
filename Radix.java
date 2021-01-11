@@ -10,4 +10,9 @@ class Radix{
   public static void main(String[] args) {
     System.out.println(length(-123));
   }
+  public static void merge(MyLinkedList original,MyLinkedList[]buckets){
+    for (int i = 0; i<buckets.length; i++){
+      original.extend(buckets[i]);
+    }
+  }
 }
