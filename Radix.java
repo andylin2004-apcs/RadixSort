@@ -1,8 +1,9 @@
 import java.lang.Math;
+import java.util.Arrays;
 
 class Radix{
   public static int nth(int n, int col){
-    return (n/(int)(Math.pow(10, col)))%10;
+    return Math.abs((n/(int)(Math.pow(10, col)))%10);
   }
   public static int length(int n){
     return (int)(Math.log10(Math.abs(n))+1);
@@ -19,21 +20,18 @@ class Radix{
   }
   public static void radixSortSimple(SortableLinkedList data){
     int maxLength = length(findMax(data));
-    SortableLinkedList toProcess = data;
     for (int slot = 0; slot<maxLength; slot++){
       SortableLinkedList[] bucket = new SortableLinkedList[10];
       for (int i = 0; i < 10; i++){
         bucket[i] = new SortableLinkedList();
       }
-      for (int i = 0; i<toProcess.size(); i++){
-        int curNum = toProcess.get(i);
+      for (int i = 0; i<data.size(); i++){
+        int curNum = data.get(i);
         bucket[nth(curNum, slot)].add(curNum);
       }
-      toProcess = new SortableLinkedList();
-      merge(toProcess, bucket);
+      destroyInfo(data);
+      merge(data, bucket);
     }
-    data = new SortableLinkedList();
-    data.extend(toProcess);
   }
   private static int findMax(SortableLinkedList data){
     int max = data.get(0);
@@ -42,13 +40,58 @@ class Radix{
     }
     return max;
   }
+  private static void destroyInfo(SortableLinkedList toDestroy){
+    while (toDestroy.size() > 0){
+      toDestroy.remove(0);
+    }
+  }
+  private static SortableLinkedList reverseLinkedList(SortableLinkedList toReverse){
+    SortableLinkedList result = new SortableLinkedList();
+    for (int i = toReverse.size()-1; i>=0; i--){
+      result.add(toReverse.get(i));
+    }
+    return result;
+  }
+  // public static void main(String[] args) {
+  //   SortableLinkedList meme = new SortableLinkedList();
+  //   meme.add(1);
+  //   meme.add(2);
+  //   meme.add(3);
+  //   meme.add(11);
+  //   meme.add(9);
+  //   meme.add(-1);
+  //   meme.add(7);
+  //   meme.add(1);
+  //   meme.add(-11);
+  //   meme.add(2);
+  //   radixSortSimple(meme);
+  //   radixSort(meme);
+  //   System.out.println(meme);
+  // }
   // Assume there are no negative values.
   // Use the algorithm described in class/class notes
   //
   // Hint: Try to calculate the largest number on your least significant digit pass. This tells your method how many passes are needed.
   //
   // 6. Write a method that sorts any integer values: [This part can be very easy or not as easy depending how you wrote the first method. It is the least important part, and I expect some students will not complete it.]
-  // public static void radixSort(SortableLinkedList data)
+  public static void radixSort(SortableLinkedList data){
+    SortableLinkedList[] bucket = new SortableLinkedList[2];
+    for (int i = 0; i<2; i++){
+      bucket[i] = new SortableLinkedList();
+    }
+    for (int i = 0; i<data.size(); i++){
+      if (data.get(i) < 0){
+        bucket[0].add(data.get(i));
+      }else{
+        bucket[1].add(data.get(i));
+      }
+    }
+    radixSortSimple(bucket[0]);
+    radixSortSimple(bucket[1]);
+    bucket[0] = reverseLinkedList(bucket[0]);
+    destroyInfo(data);
+    merge(data, bucket);
+  }
   // We have not discussed a strategy to handle this in class.
   // If you cannot complete this method, make sure the method is present so that the tester will compile!
 }
