@@ -8,11 +8,11 @@ class Radix{
   public static int length(int n){
     return (int)(Math.log10(Math.abs(n))+1);
   }
-  public static void merge(MyLinkedList original,MyLinkedList[]buckets){
-    for (int i = 0; i<buckets.length; i++){
-      original.extend(buckets[i]);
-    }
-  }
+  // public static void merge(MyLinkedList original,MyLinkedList[]buckets){
+  //   for (int i = 0; i<buckets.length; i++){
+  //     original.extend(buckets[i]);
+  //   }
+  // }
   public static void merge( SortableLinkedList original, SortableLinkedList[]buckets){
     for (int i = 0; i<buckets.length; i++){
       original.extend(buckets[i]);
@@ -25,11 +25,10 @@ class Radix{
       for (int i = 0; i < 10; i++){
         bucket[i] = new SortableLinkedList();
       }
-      for (int i = 0; i<data.size(); i++){
-        int curNum = data.get(i);
+      while(data.size() > 0){
+        int curNum = data.remove(0);
         bucket[nth(curNum, slot)].add(curNum);
       }
-      destroyInfo(data);
       merge(data, bucket);
     }
   }
@@ -40,11 +39,6 @@ class Radix{
     }
     return max;
   }
-  private static void destroyInfo(SortableLinkedList toDestroy){
-    while (toDestroy.size() > 0){
-      toDestroy.remove(0);
-    }
-  }
   private static SortableLinkedList reverseLinkedList(SortableLinkedList toReverse){
     SortableLinkedList result = new SortableLinkedList();
     for (int i = toReverse.size()-1; i>=0; i--){
@@ -52,22 +46,32 @@ class Radix{
     }
     return result;
   }
-  // public static void main(String[] args) {
-  //   SortableLinkedList meme = new SortableLinkedList();
-  //   meme.add(1);
-  //   meme.add(2);
-  //   meme.add(3);
-  //   meme.add(11);
-  //   meme.add(9);
-  //   meme.add(-1);
-  //   meme.add(7);
-  //   meme.add(1);
-  //   meme.add(-11);
-  //   meme.add(2);
-  //   radixSortSimple(meme);
-  //   radixSort(meme);
-  //   System.out.println(meme);
-  // }
+  public static void main(String[] args) {
+    SortableLinkedList meme = new SortableLinkedList();
+    meme.add(1);
+    meme.add(2);
+    meme.add(3);
+    meme.add(11);
+    meme.add(9);
+    meme.add(-1);
+    meme.add(7);
+    meme.add(1);
+    meme.add(-11);
+    meme.add(2);
+    meme.add(1);
+    meme.add(2);
+    meme.add(3);
+    meme.add(11);
+    meme.add(9);
+    meme.add(-1);
+    meme.add(7);
+    meme.add(1);
+    meme.add(-11);
+    meme.add(2);
+    radixSortSimple(meme);
+    // radixSort(meme);
+    System.out.println(meme);
+  }
   // Assume there are no negative values.
   // Use the algorithm described in class/class notes
   //
@@ -79,17 +83,17 @@ class Radix{
     for (int i = 0; i<2; i++){
       bucket[i] = new SortableLinkedList();
     }
-    for (int i = 0; i<data.size(); i++){
-      if (data.get(i) < 0){
-        bucket[0].add(data.get(i));
+    while (data.size() != 0){
+      int now = data.remove(0);
+      if (now < 0){
+        bucket[0].add(now);
       }else{
-        bucket[1].add(data.get(i));
+        bucket[1].add(now);
       }
     }
     radixSortSimple(bucket[0]);
     radixSortSimple(bucket[1]);
     bucket[0] = reverseLinkedList(bucket[0]);
-    destroyInfo(data);
     merge(data, bucket);
   }
   // We have not discussed a strategy to handle this in class.
