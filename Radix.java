@@ -39,7 +39,7 @@ class Radix{
     while (data.size() > 0){
       int removed = data.remove(0);
       test.add(removed);
-      max = Math.max(max, removed);
+      max = Math.max(max, Math.abs(removed));
     }
     data.extend(test);
     return max;
@@ -73,7 +73,7 @@ class Radix{
   //   meme.add(1);
   //   meme.add(-11);
   //   meme.add(2);
-  //   radixSortSimple(meme);
+  //   // radixSortSimple(meme);
   //   radixSort(meme);
   //   System.out.println(meme);
   // }
