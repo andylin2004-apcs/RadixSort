@@ -33,10 +33,15 @@ class Radix{
     }
   }
   private static int findMax(SortableLinkedList data){
-    int max = data.get(0);
-    for (int i = 1; i<data.size(); i++){
-      max = Math.max(max, data.get(i));
+    SortableLinkedList test = new SortableLinkedList();
+    int max = data.remove(0);
+    test.add(max);
+    while (data.size() > 0){
+      int removed = data.remove(0);
+      test.add(removed);
+      max = Math.max(max, removed);
     }
+    data.extend(test);
     return max;
   }
   private static SortableLinkedList reverseLinkedList(SortableLinkedList toReverse){
@@ -69,7 +74,7 @@ class Radix{
   //   meme.add(-11);
   //   meme.add(2);
   //   radixSortSimple(meme);
-  //   // radixSort(meme);
+  //   radixSort(meme);
   //   System.out.println(meme);
   // }
   // Assume there are no negative values.
