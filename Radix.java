@@ -96,8 +96,12 @@ class Radix{
         bucket[1].add(now);
       }
     }
-    radixSortSimple(bucket[0]);
-    radixSortSimple(bucket[1]);
+    if (bucket[0].size() > 0){
+      radixSortSimple(bucket[0]);
+    }
+    if (bucket[1].size() > 0){
+      radixSortSimple(bucket[1]);
+    }
     bucket[0] = reverseLinkedList(bucket[0]);
     merge(data, bucket);
   }
