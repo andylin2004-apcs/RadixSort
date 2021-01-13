@@ -46,32 +46,32 @@ class Radix{
     }
     return result;
   }
-  public static void main(String[] args) {
-    SortableLinkedList meme = new SortableLinkedList();
-    meme.add(1);
-    meme.add(2);
-    meme.add(3);
-    meme.add(11);
-    meme.add(9);
-    meme.add(-1);
-    meme.add(7);
-    meme.add(1);
-    meme.add(-11);
-    meme.add(2);
-    meme.add(1);
-    meme.add(2);
-    meme.add(3);
-    meme.add(11);
-    meme.add(9);
-    meme.add(-1);
-    meme.add(7);
-    meme.add(1);
-    meme.add(-11);
-    meme.add(2);
-    radixSortSimple(meme);
-    // radixSort(meme);
-    System.out.println(meme);
-  }
+  // public static void main(String[] args) {
+  //   SortableLinkedList meme = new SortableLinkedList();
+  //   meme.add(1);
+  //   meme.add(2);
+  //   meme.add(3);
+  //   meme.add(11);
+  //   meme.add(9);
+  //   meme.add(-1);
+  //   meme.add(7);
+  //   meme.add(1);
+  //   meme.add(-11);
+  //   meme.add(2);
+  //   meme.add(1);
+  //   meme.add(2);
+  //   meme.add(3);
+  //   meme.add(11);
+  //   meme.add(9);
+  //   meme.add(-1);
+  //   meme.add(7);
+  //   meme.add(1);
+  //   meme.add(-11);
+  //   meme.add(2);
+  //   radixSortSimple(meme);
+  //   // radixSort(meme);
+  //   System.out.println(meme);
+  // }
   // Assume there are no negative values.
   // Use the algorithm described in class/class notes
   //
