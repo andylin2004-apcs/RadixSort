@@ -46,8 +46,8 @@ class Radix{
   }
   private static SortableLinkedList reverseLinkedList(SortableLinkedList toReverse){
     SortableLinkedList result = new SortableLinkedList();
-    for (int i = toReverse.size()-1; i>=0; i--){
-      result.add(toReverse.get(i));
+    while (toReverse.size() > 0){
+      result.add(toReverse.remove(0));
     }
     return result;
   }
